@@ -11,8 +11,10 @@ export class PractoPage{
     readonly errorMessage;
     readonly departmentsWrapper;
     readonly selectCity;
-    readonly checkCity;
+    readonly dropMenu;
     readonly ahmedabad;
+    readonly validate;
+    readonly window;
 
     constructor(page:Page){
         this.page=page;
@@ -26,8 +28,11 @@ export class PractoPage{
         this.errorMessage = this.page.getByText("Invalid User Name");
         this.departmentsWrapper = this.page.locator('#surgeries');
         this.selectCity = this.page.locator("//div[contains(@class,'generalLeadForm-module_selectors__oNbtj') and @data-qa-id='city-selector-container']");
-        this.checkCity = this.page.locator("//div[contains(@class,'46Djy mweb:max-h-[90%] dweb:min-w-[360px] dweb:min-h-[490px]')]");
-        this.ahmedabad = this.page.locator("//span[contains(@class,'generalLeadForm-module_text__ElFI0') and text() = 'Ahmedabad']");
+        this.dropMenu = this.page.locator("//div[contains(@class,'46Djy mweb:max-h-[90%] dweb:min-w-[360px] dweb:min-h-[490px]')]");
+        this.ahmedabad = this.page.locator("//h1[contains(@class,'text-gray-2 font-normal pb-0px') and text() = 'Ahmedabad']");
+        this.validate = this.page.locator("//span[contains(@class,'generalLeadForm-module_text__ElFI0') and text() = 'Ahmedabad']");
+        this.window = this.page.locator("/span[contains(@class,'white-space-no-wrap') and contains(text(), 'Why Practo Care Surgeries?'");
+
     }
     
     // 🔹 Actions
@@ -73,14 +78,18 @@ export class PractoPage{
         }
     }
 
-    async validateCity(city : string[]){
-        await this.selectCity.click();
+    async clickCity(){
         await this.ahmedabad.click();
     }
-    async clickCity() {
+    async clickDrop() {
         await this.selectCity.click();
     }
     async showCity() {
-        await this.selectCity.click();
+        await expect(this.dropMenu).toBeVisible();
     }
+    async validateCity() {
+        await expect(this.validate).toHaveText("Ahmedabad");
+    }
+    
+
 }

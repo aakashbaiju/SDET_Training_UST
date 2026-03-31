@@ -68,10 +68,10 @@ await page.goto("https://www.practo.com/care");
         ).toBeVisible();
         console.log(`${dep} is found`);
     }    
-
+})
     
 When('user clicks on city dropdown', async ({}) => {
-  await practo.clickCity();
+  await practo.clickDrop();
 });
 
 
@@ -81,12 +81,9 @@ Then('city dropdown is visible', async ({}) => {
 
 
 When('user clicks a city', async ({}) => {
-   await practo.ahmedabad;
+   await practo.clickCity();
+  });
 
 Then('city name should be visible', async ({}) => {
-  // Step: Then city name should be visible
-  // From: tests\features\formValidation.feature:39:1
-});
-
-    await page.waitForTimeout(5000);
+   await practo.validateCity();
 });
